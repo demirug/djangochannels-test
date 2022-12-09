@@ -18,9 +18,12 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
+from apps.channelsend.views import TestView
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("chat/", include(("apps.chat.urls", "chat")))
+    path("chat/", include(("apps.chat.urls", "chat"))),
+    path("test/", TestView.as_view())
 ]
 
 if settings.DEBUG:
