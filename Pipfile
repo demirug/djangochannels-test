@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 django = "==3.2"
 python-dotenv = "*"
+channels = {extras = ["daphne"], version = "*"}
 
 [dev-packages]
 
