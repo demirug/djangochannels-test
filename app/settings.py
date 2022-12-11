@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
+from datetime import datetime
 from pathlib import Path
 
 import dotenv
@@ -153,4 +154,40 @@ CHANNEL_LAYERS = {
             "hosts": [(REDIS_HOST, REDIS_PORT)],
         },
     },
+}
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        "default": {
+            "format": "[{asctime}] {levelname} {message}",
+            "style": "{",
+        },
+        "advanced": {
+            "format": "[{asctime}] {levelname} {module} {filename}: {message}",
+            "style": "{",
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'default'
+        },
+
+        'file': {
+            'class': 'logging.FileHandler',
+            'formatter': 'default',
+            'filename':  os.path.join(BASE_DIR, 'logs', 'django_%s.log' % (datetime.now().strftime('%Y-%m-%d-%H-%M'))),
+        }
+    },
+    'loggers': {
+
+        'django': {
+            'handlers': ['console', 'file'],
+            'level': 'NOTSET',
+            'propagate': True
+        }
+
+    }
 }
